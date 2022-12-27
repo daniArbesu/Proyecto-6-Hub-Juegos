@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { makepuzzle, solvepuzzle } from 'sudoku';
 import { SudokuWrapper } from './styles';
 
-const SudokuBoard = () => {
+function SudokuBoard() {
   const [sudokuBoard, setSudokuBoard] = useState(null);
 
   useEffect(() => {
@@ -10,24 +10,17 @@ const SudokuBoard = () => {
     setSudokuBoard(newBoard);
   }, []);
 
-  const renderSudoku = () => {
-    let renderedSudoku = [];
-    console.log();
+  const handleSudokuSolve = () => {};
 
-    if (sudokuBoard) {
-      sudokuBoard.map((sudokuInput) => {
-        renderedSudoku.push(
-          <input
-            type="number"
-            value={sudokuInput}
-            disabled={Boolean(sudokuInput)}
-            min="0"
-            step="1"
-            max="9"
-          ></input>
-        );
-      });
-    }
+  const renderSudoku = () => {
+    if (!sudokuBoard) return null;
+
+    const renderedSudoku = sudokuBoard.map((sudokuInput) => {
+      const isEmpty = sudokuInput === null;
+      return (
+        <input type="number" value={sudokuInput} disabled={!isEmpty} min="0" step="1" max="9" />
+      );
+    });
 
     return renderedSudoku;
   };
@@ -40,9 +33,11 @@ const SudokuBoard = () => {
   return (
     <div>
       <SudokuWrapper>{renderSudoku()}</SudokuWrapper>
-      <button>Validate Sudoku</button>
+      <button type="button" onClick={handleSudokuSolve}>
+        Validate Sudoku
+      </button>
     </div>
   );
-};
+}
 
 export default SudokuBoard;
