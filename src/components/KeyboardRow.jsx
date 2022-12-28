@@ -4,7 +4,6 @@ function KeyboardRow({ characters, onClickLetter, enteredList }) {
     <>
       {characters.split('').map((character) => {
         const wasPressed = enteredList.includes(character);
-        console.log(wasPressed);
         return (
           <button
             type="button"
