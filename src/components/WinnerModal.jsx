@@ -10,7 +10,7 @@ const Modal = styled.dialog`
   border: 1px solid #888;
   background-color: #ffffff;
   box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.8);
-  top: 200px;
+  top: 200px; // to see the board
 `;
 
 function WinnerModal({ winner, resetGame }) {
