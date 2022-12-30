@@ -31,6 +31,7 @@ export const WINNER_BOARDS_ROW_TEST = [
   ]
 ];
 
+// boards for the tests
 export const WINNER_BOARDS_COLUMN_TEST = [
   [
     ['O', 'X', null],
