@@ -29,3 +29,21 @@ export const WINNER_BOARDS_ROW_TEST = [
     ['X', 'X', 'X']
   ]
 ];
+
+export const WINNER_BOARDS_COLUMN_TEST = [
+  [
+    ['O', 'X', null],
+    ['O', 'O', null],
+    ['O', null, null]
+  ],
+  [
+    ['X', 'O', 'O'],
+    ['X', 'O', 'X'],
+    [null, 'O', null]
+  ],
+  [
+    ['X', 'O', 'O'],
+    [null, null, 'O'],
+    ['X', 'X', 'O']
+  ]
+];
