@@ -12,6 +12,7 @@ export const INITIAL_BOARD = [
   [null, null, null]
 ];
 
+// boards for the tests
 export const WINNER_BOARDS_ROW_TEST = [
   [
     ['X', 'X', 'X'],
