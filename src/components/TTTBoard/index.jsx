@@ -1,19 +1,20 @@
-import { useState, useEffect, useRef } from 'react';
-import { INITIAL_BOARD, PLAYERS } from '../../constants';
-import gameOver, { randomPlayer } from '../../utils/tictactoe';
+import confetti from 'canvas-confetti';
+import { useState, useRef } from 'react';
+import { INITIAL_BOARD, PLAYERS } from '../../constants/tictactoe';
+import checkWinner, { checkDraw, randomPlayer } from '../../utils/tictactoe';
+import WinnerModal from '../WinnerModal';
 import { TTTBoardWrapper, TTTButton } from './styles';
 
 function TTTBoard() {
   const [board, setBoard] = useState(INITIAL_BOARD);
   const turn = useRef(randomPlayer());
-  const [isGameOver, setIsGameOver] = useState(false);
+  const winner = useRef(null);
 
-  useEffect(() => {
-    // everytime there's a user input we check if the game is over
-    if (gameOver(board)) {
-      setIsGameOver(!isGameOver);
-    }
-  }, [board]);
+  const resetGame = () => {
+    setBoard(INITIAL_BOARD);
+    turn.current = randomPlayer();
+    winner.current = null;
+  };
 
   const handleBoardChange = (id) => {
     const player = turn.current;
@@ -21,11 +22,22 @@ function TTTBoard() {
     const isCellEmpty = !board[row][column];
 
     if (isCellEmpty) {
+      // set new board
       const newBoard = structuredClone(board);
       newBoard[row][column] = player;
       setBoard(newBoard);
+      // change turn
       const newTurn = player === PLAYERS.X ? PLAYERS.O : PLAYERS.X;
       turn.current = newTurn;
+      // check for winner
+      const newWinner = checkWinner(newBoard, player);
+      if (newWinner) {
+        confetti();
+        winner.current = newWinner;
+      } else if (checkDraw(newBoard)) {
+        // check if there was a draw
+        winner.current = 'draw';
+      }
     }
   };
 
@@ -37,7 +49,7 @@ function TTTBoard() {
             id={`${rowIndex}-${columnIndex}`}
             // eslint-disable-next-line react/no-array-index-key
             key={`${rowIndex}-${columnIndex}`}
-            disabled={isGameOver}
+            disabled={!!winner.current}
             onClick={(e) => handleBoardChange(e.target.id)}
           >
             {board[rowIndex][columnIndex]}
@@ -51,10 +63,8 @@ function TTTBoard() {
 
   return (
     <div>
-      {isGameOver ? (
-        <h2>
-          Player <b>{turn.current}</b> Won!!
-        </h2>
+      {winner.current ? (
+        <WinnerModal winner={winner.current} resetGame={resetGame} />
       ) : (
         <p>
           Player <b>{turn.current}</b> turn

@@ -1,52 +1,44 @@
-import { PLAYERS } from '../constants';
+import { PLAYERS } from '../constants/tictactoe';
 
 const checkRows = (board) => {
-  if (board.length) {
-    const firstRowCheck =
-      board[0][0] !== null && board[0][0] === board[0][1] && board[0][1] === board[0][2];
-    const secondRowCheck =
-      board[1][0] !== null && board[1][0] === board[1][1] && board[1][1] === board[1][2];
-    const thirdRowCheck =
-      board[2][0] !== null && board[2][0] === board[2][1] && board[2][1] === board[2][2];
+  const firstRowCheck =
+    board[0][0] !== null && board[0][0] === board[0][1] && board[0][1] === board[0][2];
+  const secondRowCheck =
+    board[1][0] !== null && board[1][0] === board[1][1] && board[1][1] === board[1][2];
+  const thirdRowCheck =
+    board[2][0] !== null && board[2][0] === board[2][1] && board[2][1] === board[2][2];
 
-    return firstRowCheck || secondRowCheck || thirdRowCheck;
-  }
-  return false;
+  return firstRowCheck || secondRowCheck || thirdRowCheck;
 };
 
 const checkColumns = (board) => {
-  if (board.length) {
-    const firstColumnCheck =
-      board[0][0] !== null && board[0][0] === board[1][0] && board[1][0] === board[2][0];
-    const secondColumnCheck =
-      board[0][1] !== null && board[0][1] === board[1][1] && board[1][1] === board[2][1];
-    const thirdColumnCheck =
-      board[0][2] !== null && board[0][2] === board[1][2] && board[1][2] === board[2][2];
+  const firstColumnCheck =
+    board[0][0] !== null && board[0][0] === board[1][0] && board[1][0] === board[2][0];
+  const secondColumnCheck =
+    board[0][1] !== null && board[0][1] === board[1][1] && board[1][1] === board[2][1];
+  const thirdColumnCheck =
+    board[0][2] !== null && board[0][2] === board[1][2] && board[1][2] === board[2][2];
 
-    return firstColumnCheck || secondColumnCheck || thirdColumnCheck;
-  }
-  return false;
+  return firstColumnCheck || secondColumnCheck || thirdColumnCheck;
 };
 
 const checkDiagonals = (board) => {
-  if (board.length) {
-    const firstDiagonal =
-      board[0][0] !== null && board[0][0] === board[1][1] && board[1][1] === board[2][2];
-    const secondDiagonal =
-      board[0][2] !== null && board[0][2] === board[1][1] && board[1][1] === board[2][0];
+  const firstDiagonal =
+    board[0][0] !== null && board[0][0] === board[1][1] && board[1][1] === board[2][2];
+  const secondDiagonal =
+    board[0][2] !== null && board[0][2] === board[1][1] && board[1][1] === board[2][0];
 
-    return firstDiagonal || secondDiagonal;
-  }
-
-  return false;
+  return firstDiagonal || secondDiagonal;
 };
 
-const gameOver = (board) => {
+const checkWinner = (board, player) => {
   const wonRows = checkRows(board);
   const wonColumns = checkColumns(board);
   const wonDiagonals = checkDiagonals(board);
-
-  return wonRows || wonColumns || wonDiagonals;
+  if (wonRows || wonColumns || wonDiagonals) {
+    return player;
+  }
+  return null;
 };
 
 export const randomPlayer = () => {
@@ -54,4 +46,10 @@ export const randomPlayer = () => {
   return PLAYERS[keys[Math.floor(keys.length * Math.random())]];
 };
 
-export default gameOver;
+export const checkDraw = (board) => {
+  const simpleArray = board.flat();
+  // check if any square is filled
+  return simpleArray.every((element) => element !== null);
+};
+
+export default checkWinner;
