@@ -7,13 +7,8 @@ import { TTTBoardWrapper, TTTButton } from './styles';
 let playerXTurn = true;
 
 function TTTBoard() {
-  const [board, setBoard] = useState([]);
+  const [board, setBoard] = useState(INITIAL_BOARD);
   const [isGameOver, setIsGameOver] = useState(false);
-
-  useEffect(() => {
-    // reset the game everytime we click on the finish button
-    setBoard(INITIAL_BOARD);
-  }, []);
 
   useEffect(() => {
     // everytime there's a user input we check if the game is over
@@ -35,22 +30,20 @@ function TTTBoard() {
   };
 
   const renderBoard = () => {
-    const boardView = [];
-
-    for (let row in board) {
-      for (let column in board) {
-        boardView.push(
+    const boardView = board.map((row, rowIndex) => {
+      return row.map((_, columnIndex) => {
+        return (
           <TTTButton
-            id={`${row}-${column}`}
-            key={`${row}-${column}`}
+            id={`${rowIndex}-${columnIndex}`}
+            key={`${rowIndex}-${columnIndex}`}
             disabled={isGameOver}
             onClick={(e) => handleBoardChange(e.target.id)}
           >
-            {board[row][column]}
+            {board[rowIndex][columnIndex]}
           </TTTButton>
         );
-      }
-    }
+      });
+    });
 
     return boardView;
   };
