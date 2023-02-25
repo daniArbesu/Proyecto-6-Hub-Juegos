@@ -1,8 +1,15 @@
-//Constants for the Tic-Tac-Toe Game
+// Constants for the Tic-Tac-Toe Game
+// separate players from game logic
+export const PLAYERS = {
+  X: 'X',
+  O: 'O'
+};
+
+// initial board
 export const INITIAL_BOARD = [
   [null, null, null],
   [null, null, null],
-  [null, null, null],
+  [null, null, null]
 ];
 
 // Constants for the Hangman Game

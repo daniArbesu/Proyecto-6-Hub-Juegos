@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-//import '../../index.css';
+// import '../../index.css';
 
 export const TTTBoardWrapper = styled.div`
   display: grid;
