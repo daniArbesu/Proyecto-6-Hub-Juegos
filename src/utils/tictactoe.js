@@ -1,3 +1,5 @@
+import { PLAYERS } from '../constants';
+
 const checkRows = (board) => {
   if (board.length) {
     const firstRowCheck =
@@ -39,7 +41,7 @@ const checkDiagonals = (board) => {
   return false;
 };
 
-const GameOver = (board) => {
+const gameOver = (board) => {
   const wonRows = checkRows(board);
   const wonColumns = checkColumns(board);
   const wonDiagonals = checkDiagonals(board);
@@ -47,4 +49,9 @@ const GameOver = (board) => {
   return wonRows || wonColumns || wonDiagonals;
 };
 
-export default GameOver;
+export const randomPlayer = () => {
+  const keys = Object.keys(PLAYERS);
+  return PLAYERS[keys[Math.floor(keys.length * Math.random())]];
+};
+
+export default gameOver;
