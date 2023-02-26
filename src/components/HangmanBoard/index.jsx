@@ -18,16 +18,13 @@ const Keyboard = styled.section`
 const ENTERED_LETTERS_LIST = [];
 
 function HangmanBoard() {
+  // TODO: change selectedWord with a ref
   const [selectedWord, setSelectedWord] = useState('');
   const [enteredLetter, setEnteredLetter] = useState('');
 
   const handleKeyPress = (character) => {
-    if (ENTERED_LETTERS_LIST.includes(character)) {
-      setEnteredLetter(`You pressed ${character} already`);
-    } else {
-      ENTERED_LETTERS_LIST.push(character);
-      setEnteredLetter(`You pressed ${character}`);
-    }
+    ENTERED_LETTERS_LIST.push(character);
+    setEnteredLetter(`You pressed ${character}`);
   };
   useEffect(() => {
     setSelectedWord(PLAY_WORDS[1]);
@@ -51,9 +48,8 @@ function HangmanBoard() {
     <HangmanBoardWrapper>
       <h2>Word: {printWord()}</h2>
       <h3>{enteredLetter}</h3>
-      <p>Press any letter on your keyboard</p>
       <p>
-        Entered letters: {console.log(enteredLetter)}
+        Entered letters:
         {ENTERED_LETTERS_LIST.map((letter) => `${letter} `)}
       </p>
       <Keyboard id="keyboard">
