@@ -1,33 +1,36 @@
 import { useEffect, useState } from 'react';
-import { PLAY_WORDS } from '../../constants';
+import styled from 'styled-components';
+import { PLAY_WORDS } from '../../constants/hangman';
+import KeyboardRow from '../KeyboardRow';
 import { HangmanBoardWrapper } from './styles';
+
+const Keyboard = styled.section`
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  width: fit-content;
+  grid-column-gap: 4px;
+  grid-row-gap: 4px;
+  margin: 1rem 0;
+  margin: 0 auto;
+`;
 
 const ENTERED_LETTERS_LIST = [];
 
-const HangmanBoard = () => {
+function HangmanBoard() {
   const [selectedWord, setSelectedWord] = useState('');
   const [enteredLetter, setEnteredLetter] = useState('');
 
-  const handleKeyPress = (e) => {
-    //we make it lowercase to avoid counting uppercases
-    const letter = e.key.toLowerCase();
-
-    if (e.code.startsWith('Key')) {
-      if (ENTERED_LETTERS_LIST.includes(letter)) {
-        setEnteredLetter(`You pressed ${letter} already`);
-      } else {
-        ENTERED_LETTERS_LIST.push(letter);
-        setEnteredLetter(`You pressed ${letter}`);
-      }
+  const handleKeyPress = (character) => {
+    if (ENTERED_LETTERS_LIST.includes(character)) {
+      setEnteredLetter(`You pressed ${character} already`);
+    } else {
+      ENTERED_LETTERS_LIST.push(character);
+      setEnteredLetter(`You pressed ${character}`);
     }
   };
   useEffect(() => {
     setSelectedWord(PLAY_WORDS[1]);
-    window.addEventListener('keydown', handleKeyPress);
-
-    return () => {
-      window.removeEventListener('keydown', handleKeyPress);
-    };
   }, []);
 
   useEffect(() => {}, [enteredLetter]);
@@ -53,8 +56,25 @@ const HangmanBoard = () => {
         Entered letters: {console.log(enteredLetter)}
         {ENTERED_LETTERS_LIST.map((letter) => `${letter} `)}
       </p>
+      <Keyboard id="keyboard">
+        <KeyboardRow
+          onClickLetter={handleKeyPress}
+          characters="abcdefghi"
+          enteredList={ENTERED_LETTERS_LIST}
+        />
+        <KeyboardRow
+          onClickLetter={handleKeyPress}
+          characters="jklmnñopq"
+          enteredList={ENTERED_LETTERS_LIST}
+        />
+        <KeyboardRow
+          onClickLetter={handleKeyPress}
+          characters="rstuvwxyz"
+          enteredList={ENTERED_LETTERS_LIST}
+        />
+      </Keyboard>
     </HangmanBoardWrapper>
   );
-};
+}
 
 export default HangmanBoard;
