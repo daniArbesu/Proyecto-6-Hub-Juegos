@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { CHARACTERS, PLAY_WORDS } from '../../constants/hangman';
+import { CHARACTERS } from '../../constants/hangman';
 import randomWord from '../../utils/hangman';
 import KeyboardRow from '../KeyboardRow';
 import { HangmanBoardWrapper } from './styles';
