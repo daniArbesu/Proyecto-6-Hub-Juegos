@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { PLAY_WORDS } from '../../constants/hangman';
+import { CHARACTERS, PLAY_WORDS } from '../../constants/hangman';
+import randomWord from '../../utils/hangman';
 import KeyboardRow from '../KeyboardRow';
 import { HangmanBoardWrapper } from './styles';
 
 const Keyboard = styled.section`
   display: grid;
-  grid-template-columns: repeat(9, 1fr);
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   width: fit-content;
   grid-column-gap: 4px;
   grid-row-gap: 4px;
@@ -27,7 +27,12 @@ function HangmanBoard() {
     setEnteredLetter(`You pressed ${character}`);
   };
   useEffect(() => {
-    setSelectedWord(PLAY_WORDS[1]);
+    const newWord = randomWord();
+    setSelectedWord(newWord);
+
+    return () => {
+      // setEnteredLetter('');
+    };
   }, []);
 
   useEffect(() => {}, [enteredLetter]);
@@ -48,24 +53,11 @@ function HangmanBoard() {
     <HangmanBoardWrapper>
       <h2>Word: {printWord()}</h2>
       <h3>{enteredLetter}</h3>
-      <p>
-        Entered letters:
-        {ENTERED_LETTERS_LIST.map((letter) => `${letter} `)}
-      </p>
+      <p>Entered letters: {ENTERED_LETTERS_LIST.map((letter) => `${letter} `)}</p>
       <Keyboard id="keyboard">
         <KeyboardRow
           onClickLetter={handleKeyPress}
-          characters="abcdefghi"
-          enteredList={ENTERED_LETTERS_LIST}
-        />
-        <KeyboardRow
-          onClickLetter={handleKeyPress}
-          characters="jklmnñopq"
-          enteredList={ENTERED_LETTERS_LIST}
-        />
-        <KeyboardRow
-          onClickLetter={handleKeyPress}
-          characters="rstuvwxyz"
+          characters={CHARACTERS}
           enteredList={ENTERED_LETTERS_LIST}
         />
       </Keyboard>
