@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { CHARACTERS } from '../../constants/hangman';
 import randomWord from '../../utils/hangman';
+import HangmanIcon from '../HangmanIcon';
 import KeyboardRow from '../KeyboardRow';
 import { HangmanBoardWrapper } from './styles';
 
@@ -58,6 +59,7 @@ function HangmanBoard() {
           enteredList={enteredLetters}
         />
       </Keyboard>
+      <HangmanIcon />
     </HangmanBoardWrapper>
   );
 }

@@ -6,14 +6,14 @@ function Hangman() {
   const [isStarted, setIsStarted] = useState(false);
 
   return (
-    <div>
+    <section>
       <h2>Play Hangman</h2>
       <Link to="/">Back</Link>
       <button type="button" onClick={() => setIsStarted(!isStarted)}>
         {isStarted ? 'End Game' : 'Start Game'}
       </button>
       {isStarted ? <HangmanBoard /> : null}
-    </div>
+    </section>
   );
 }
 
