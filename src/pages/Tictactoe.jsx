@@ -6,7 +6,7 @@ function Tictactoe() {
   const [isStarted, setIsStarted] = useState(false);
 
   return (
-    <div className="tiktaktoe">
+    <section className="tiktaktoe">
       <div className="tiktaktoe-header">
         <h2>Play Tic-Tac-Toe</h2>
         <Link to="/">Back</Link>
@@ -15,7 +15,7 @@ function Tictactoe() {
         </button>
         {isStarted ? <TTTBoard /> : null}
       </div>
-    </div>
+    </section>
   );
 }
 

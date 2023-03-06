@@ -7,15 +7,20 @@ import Sudoku from './pages/Sudoku';
 
 function App() {
   return (
-    <div className="App">
-      <h1>Game Hub</h1>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/tictactoe" element={<Tictactoe />} />
-        <Route path="/hangman" element={<Hangman />} />
-        <Route path="/sudoku" element={<Sudoku />} />
-      </Routes>
-    </div>
+    <>
+      <main className="App">
+        <h1>Game Hub</h1>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/tictactoe" element={<Tictactoe />} />
+          <Route path="/hangman" element={<Hangman />} />
+          <Route path="/sudoku" element={<Sudoku />} />
+        </Routes>
+      </main>
+      <footer>
+        <p>Creado por Daniel Arbesú</p>
+      </footer>
+    </>
   );
 }
 

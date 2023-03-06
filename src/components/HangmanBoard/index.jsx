@@ -13,52 +13,49 @@ const Keyboard = styled.section`
   grid-row-gap: 4px;
   margin: 1rem 0;
   margin: 0 auto;
+
+  @media screen and (min-width: 500px) {
+    grid-template-columns: repeat(9, 1fr);
+  }
 `;
 
-const ENTERED_LETTERS_LIST = [];
-
 function HangmanBoard() {
-  // TODO: change selectedWord with a ref
   const [selectedWord, setSelectedWord] = useState('');
-  const [enteredLetter, setEnteredLetter] = useState('');
+  const [enteredLetters, setEnteredLetters] = useState([]);
 
   const handleKeyPress = (character) => {
-    ENTERED_LETTERS_LIST.push(character);
-    setEnteredLetter(`You pressed ${character}`);
+    const newLettersList = [...enteredLetters, character];
+    setEnteredLetters(newLettersList);
   };
+
   useEffect(() => {
     const newWord = randomWord();
     setSelectedWord(newWord);
-
-    return () => {
-      // setEnteredLetter('');
-    };
   }, []);
 
-  useEffect(() => {}, [enteredLetter]);
+  useEffect(() => {}, [enteredLetters]);
 
   const printWord = () => {
     let displayWords = '';
-    for (const letter of selectedWord) {
-      if (ENTERED_LETTERS_LIST.includes(letter)) {
+    selectedWord.split('').forEach((letter) => {
+      if (enteredLetters.includes(letter)) {
         displayWords += `${letter} `;
       } else {
         displayWords += '_ ';
       }
-    }
+    });
+
     return displayWords;
   };
 
   return (
     <HangmanBoardWrapper>
       <h2>Word: {printWord()}</h2>
-      <h3>{enteredLetter}</h3>
-      <p>Entered letters: {ENTERED_LETTERS_LIST.map((letter) => `${letter} `)}</p>
       <Keyboard id="keyboard">
         <KeyboardRow
           onClickLetter={handleKeyPress}
           characters={CHARACTERS}
-          enteredList={ENTERED_LETTERS_LIST}
+          enteredList={enteredLetters}
         />
       </Keyboard>
     </HangmanBoardWrapper>
