@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { CHARACTERS } from '../../constants/hangman';
 import randomWord from '../../utils/hangman';
@@ -23,10 +23,15 @@ const Keyboard = styled.section`
 function HangmanBoard() {
   const [selectedWord, setSelectedWord] = useState('');
   const [enteredLetters, setEnteredLetters] = useState([]);
+  const wrongTries = useRef(0);
 
   const handleKeyPress = (character) => {
     const newLettersList = [...enteredLetters, character];
+    const isInSelectedWord = selectedWord.split('').includes(character);
     setEnteredLetters(newLettersList);
+    if (!isInSelectedWord) {
+      wrongTries.current += 1;
+    }
   };
 
   useEffect(() => {
@@ -59,7 +64,7 @@ function HangmanBoard() {
           enteredList={enteredLetters}
         />
       </Keyboard>
-      <HangmanIcon />
+      <HangmanIcon wrongTries={wrongTries} />
     </HangmanBoardWrapper>
   );
 }
