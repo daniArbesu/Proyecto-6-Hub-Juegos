@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { CHARACTERS } from '../../constants/hangman';
-import randomWord from '../../utils/hangman';
+import { printWord, randomWord } from '../../utils/hangman';
 import HangmanIcon from '../HangmanIcon';
 import KeyboardRow from '../KeyboardRow';
 import { HangmanBoardWrapper } from './styles';
@@ -24,6 +24,7 @@ function HangmanBoard() {
   const [selectedWord, setSelectedWord] = useState('');
   const [enteredLetters, setEnteredLetters] = useState([]);
   const wrongTries = useRef(0);
+  const displayedWord = useRef('');
 
   const handleKeyPress = (character) => {
     const newLettersList = [...enteredLetters, character];
@@ -31,32 +32,22 @@ function HangmanBoard() {
     setEnteredLetters(newLettersList);
     if (!isInSelectedWord) {
       wrongTries.current += 1;
+      return;
     }
+    displayedWord.current = printWord(selectedWord, enteredLetters);
   };
 
   useEffect(() => {
     const newWord = randomWord();
     setSelectedWord(newWord);
+    displayedWord.current = printWord(selectedWord, enteredLetters);
   }, []);
 
   useEffect(() => {}, [enteredLetters]);
 
-  const printWord = () => {
-    let displayWords = '';
-    selectedWord.split('').forEach((letter) => {
-      if (enteredLetters.includes(letter)) {
-        displayWords += `${letter} `;
-      } else {
-        displayWords += '_ ';
-      }
-    });
-
-    return displayWords;
-  };
-
   return (
     <HangmanBoardWrapper>
-      <h2>Word: {printWord()}</h2>
+      <h2>Word: {displayedWord.current}</h2>
       <HangmanIcon wrongTries={wrongTries} />
       <Keyboard id="keyboard">
         <KeyboardRow
