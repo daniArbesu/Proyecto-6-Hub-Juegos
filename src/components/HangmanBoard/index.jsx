@@ -57,6 +57,7 @@ function HangmanBoard() {
   return (
     <HangmanBoardWrapper>
       <h2>Word: {printWord()}</h2>
+      <HangmanIcon wrongTries={wrongTries} />
       <Keyboard id="keyboard">
         <KeyboardRow
           onClickLetter={handleKeyPress}
@@ -64,7 +65,6 @@ function HangmanBoard() {
           enteredList={enteredLetters}
         />
       </Keyboard>
-      <HangmanIcon wrongTries={wrongTries} />
     </HangmanBoardWrapper>
   );
 }
