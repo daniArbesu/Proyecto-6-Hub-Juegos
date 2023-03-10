@@ -47,7 +47,8 @@ function HangmanBoard() {
       wrongTries.current += 1;
       if (wrongTries.current === MAX_TRIALS) {
         gameOver.current = true;
-        modalText = "You've lost :(";
+        modalText = `You've lost :( 
+          The word was: ${selectedWord}`;
       }
       return;
     }
