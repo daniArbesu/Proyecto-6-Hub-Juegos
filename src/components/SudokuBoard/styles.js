@@ -25,6 +25,10 @@ const SudokuWrapper = styled.div`
   input[type='number'] {
     -moz-appearance: textfield;
   }
+
+  /*   > input:nth-child(3n) {
+    border-right: 2px solid black;
+  } */
 `;
 
 export default SudokuWrapper;
