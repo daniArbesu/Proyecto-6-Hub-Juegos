@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const SudokuWrapper = styled.div`
+const SudokuWrapper = styled.div`
   display: grid;
   grid-template-rows: repeat(9, 1fr);
   grid-template-columns: repeat(9, 1fr);
@@ -8,10 +8,10 @@ export const SudokuWrapper = styled.div`
 
   > input {
     font-size: 1.5rem;
-    padding: 0.5rem;
+    padding: 0.9rem;
     text-align: center;
-    width: 40px;
-    height: 40px;
+    width: 1ch;
+    height: 1ch;
   }
 
   /* Chrome, Safari, Edge, Opera */
@@ -26,3 +26,5 @@ export const SudokuWrapper = styled.div`
     -moz-appearance: textfield;
   }
 `;
+
+export default SudokuWrapper;

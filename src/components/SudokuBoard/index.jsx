@@ -1,16 +1,15 @@
 import { useEffect, useState } from 'react';
 import { makepuzzle, solvepuzzle } from 'sudoku';
-import { SudokuWrapper } from './styles';
+import SudokuWrapper from './styles';
 
 function SudokuBoard() {
   const [sudokuBoard, setSudokuBoard] = useState(null);
+  const [isCompleted, setIsCompleted] = useState(false);
 
   useEffect(() => {
     const newBoard = makepuzzle();
     setSudokuBoard(newBoard);
   }, []);
-
-  const handleSudokuSolve = () => {};
 
   const renderSudoku = () => {
     if (!sudokuBoard) return null;
@@ -25,18 +24,22 @@ function SudokuBoard() {
     return renderedSudoku;
   };
 
+  const isSudokuCompleted = () => {};
+
   const isSudokuSolved = () => {
     const solved = solvepuzzle(sudokuBoard);
     // Comprobamos si solved y sudokuBoard tienen las mismas celdas
   };
 
+  const handleSudokuSolve = () => {};
+
   return (
-    <div>
+    <section>
       <SudokuWrapper>{renderSudoku()}</SudokuWrapper>
-      <button type="button" onClick={handleSudokuSolve}>
+      <button type="button" onClick={handleSudokuSolve} disabled={!isCompleted}>
         Validate Sudoku
       </button>
-    </div>
+    </section>
   );
 }
 
