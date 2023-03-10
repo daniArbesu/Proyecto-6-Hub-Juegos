@@ -1,9 +1,11 @@
+import confetti from 'canvas-confetti';
 import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { CHARACTERS } from '../../constants/hangman';
-import { printWord, randomWord } from '../../utils/hangman';
+import { printWord, randomWord, checkWordComplete } from '../../utils/hangman';
 import HangmanIcon from '../HangmanIcon';
 import KeyboardRow from '../KeyboardRow';
+import WinnerModal from '../WinnerModal';
 import { HangmanBoardWrapper } from './styles';
 
 const Keyboard = styled.section`
@@ -20,11 +22,22 @@ const Keyboard = styled.section`
   }
 `;
 
+let modalText = '';
+
 function HangmanBoard() {
   const [selectedWord, setSelectedWord] = useState('');
   const [enteredLetters, setEnteredLetters] = useState([]);
   const [displayedWord, setDisplayedWord] = useState('');
   const wrongTries = useRef(0);
+  const winner = useRef(null);
+
+  const resetGame = () => {
+    setSelectedWord(randomWord());
+    setEnteredLetters([]);
+    wrongTries.current = 0;
+    winner.current = null;
+    modalText = '';
+  };
 
   const handleKeyPress = (character) => {
     const newLettersList = [...enteredLetters, character];
@@ -34,7 +47,14 @@ function HangmanBoard() {
       wrongTries.current += 1;
       return;
     }
-    setDisplayedWord(printWord(selectedWord, enteredLetters));
+    const newDisplayedWord = printWord(selectedWord, newLettersList);
+    setDisplayedWord(newDisplayedWord);
+    const isWinner = checkWordComplete(newDisplayedWord);
+    if (isWinner) {
+      confetti();
+      winner.current = true;
+      modalText = 'You found the word!!';
+    }
   };
 
   useEffect(() => {
@@ -49,6 +69,7 @@ function HangmanBoard() {
   return (
     <HangmanBoardWrapper>
       <h2>Word: {displayedWord}</h2>
+      {winner.current ? <WinnerModal text={modalText} resetGame={resetGame} /> : null}
       <HangmanIcon wrongTries={wrongTries} />
       <Keyboard id="keyboard">
         <KeyboardRow

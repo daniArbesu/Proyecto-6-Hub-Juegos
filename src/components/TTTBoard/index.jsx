@@ -5,6 +5,8 @@ import checkWinner, { checkDraw, randomPlayer } from '../../utils/tictactoe';
 import WinnerModal from '../WinnerModal';
 import { TTTBoardWrapper, TTTButton } from './styles';
 
+let modalText = '';
+
 function TTTBoard() {
   const [board, setBoard] = useState(INITIAL_BOARD);
   const turn = useRef(randomPlayer());
@@ -14,6 +16,7 @@ function TTTBoard() {
     setBoard(INITIAL_BOARD);
     turn.current = randomPlayer();
     winner.current = null;
+    modalText = '';
   };
 
   const handleBoardChange = (id) => {
@@ -34,9 +37,11 @@ function TTTBoard() {
       if (newWinner) {
         confetti();
         winner.current = newWinner;
+        modalText = `Player ${newWinner} won!!`;
       } else if (checkDraw(newBoard)) {
         // check if there was a draw
         winner.current = 'draw';
+        modalText = "There's a draw :(";
       }
     }
   };
@@ -64,7 +69,7 @@ function TTTBoard() {
   return (
     <div>
       {winner.current ? (
-        <WinnerModal winner={winner.current} resetGame={resetGame} />
+        <WinnerModal text={modalText} resetGame={resetGame} />
       ) : (
         <p>
           Player <b>{turn.current}</b> turn

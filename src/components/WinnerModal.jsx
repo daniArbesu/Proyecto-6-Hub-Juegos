@@ -13,9 +13,7 @@ const Modal = styled.dialog`
   top: 200px; // to see the board
 `;
 
-function WinnerModal({ winner, resetGame }) {
-  const text = winner === 'draw' ? "There's a draw :(" : `Player ${winner} won!!`;
-
+function WinnerModal({ text, resetGame }) {
   const handleReset = () => {
     resetGame();
   };
