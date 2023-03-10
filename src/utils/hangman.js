@@ -11,6 +11,8 @@ export const checkWordComplete = (displayedWord) => {
 };
 
 export const printWord = (selectedWord, enteredLetters) => {
+  if (selectedWord === '') return null;
+
   let displayWords = '';
   selectedWord.split('').forEach((letter) => {
     if (enteredLetters.includes(letter)) {

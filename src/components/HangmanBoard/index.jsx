@@ -23,8 +23,8 @@ const Keyboard = styled.section`
 function HangmanBoard() {
   const [selectedWord, setSelectedWord] = useState('');
   const [enteredLetters, setEnteredLetters] = useState([]);
+  const [displayedWord, setDisplayedWord] = useState('');
   const wrongTries = useRef(0);
-  const displayedWord = useRef('');
 
   const handleKeyPress = (character) => {
     const newLettersList = [...enteredLetters, character];
@@ -34,20 +34,21 @@ function HangmanBoard() {
       wrongTries.current += 1;
       return;
     }
-    displayedWord.current = printWord(selectedWord, enteredLetters);
+    setDisplayedWord(printWord(selectedWord, enteredLetters));
   };
 
   useEffect(() => {
     const newWord = randomWord();
     setSelectedWord(newWord);
-    displayedWord.current = printWord(selectedWord, enteredLetters);
   }, []);
 
-  useEffect(() => {}, [enteredLetters]);
+  useEffect(() => {
+    setDisplayedWord(printWord(selectedWord, enteredLetters));
+  }, [selectedWord]);
 
   return (
     <HangmanBoardWrapper>
-      <h2>Word: {displayedWord.current}</h2>
+      <h2>Word: {displayedWord}</h2>
       <HangmanIcon wrongTries={wrongTries} />
       <Keyboard id="keyboard">
         <KeyboardRow
