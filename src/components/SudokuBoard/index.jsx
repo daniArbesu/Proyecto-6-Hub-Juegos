@@ -25,16 +25,17 @@ function SudokuBoard() {
     isCompleted.current = isSudokuCompleted(newBoard);
   };
 
-  const renderSudoku = () => {
-    if (!sudokuBoard) return null;
+  const renderSudoku = (sudokuDisplayBoard) => {
+    if (!sudokuDisplayBoard) return null;
 
-    const renderedSudoku = sudokuBoard.map((sudokuInput, index) => {
-      const isEmpty = sudokuInput === null;
+    const renderedSudoku = sudokuDisplayBoard.map((sudokuInput, index) => {
+      const isGiven = sudokuInput === sudokuBoard[index] && sudokuInput !== null;
+
       return (
         <input
           type="number"
           value={sudokuInput}
-          disabled={!isEmpty}
+          disabled={isGiven}
           min="0"
           step="1"
           max="9"
@@ -49,14 +50,14 @@ function SudokuBoard() {
 
   const solveSudoku = () => {
     const solution = solvepuzzle(sudokuBoard);
-    setSudokuBoard(solution);
+    setDisplayBoard(solution);
   };
 
   const validateSudoku = () => {};
 
   return (
     <section>
-      <SudokuWrapper>{renderSudoku()}</SudokuWrapper>
+      <SudokuWrapper>{renderSudoku(displayBoard)}</SudokuWrapper>
       <button type="button" onClick={validateSudoku} disabled={!isCompleted.current}>
         Validate Sudoku
       </button>
