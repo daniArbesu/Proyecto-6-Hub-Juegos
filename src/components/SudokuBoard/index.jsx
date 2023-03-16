@@ -15,7 +15,7 @@ function SudokuBoard() {
   }, []);
 
   const handleInputChange = (e) => {
-    const newBoard = displayBoard;
+    const newBoard = [...displayBoard];
     const inputIndex = e.target.id;
     const inputValue = e.target.value === '' ? null : Number(e.target.value);
 
