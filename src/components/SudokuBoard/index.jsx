@@ -29,18 +29,23 @@ function SudokuBoard() {
     if (!sudokuDisplayBoard) return null;
 
     const renderedSudoku = sudokuDisplayBoard.map((sudokuInput, index) => {
+      // check if the value was given in the original board
       const isGiven = sudokuInput === sudokuBoard[index] && sudokuInput !== null;
+      // to avoid using null values we change it to an empty string
+      const value = sudokuInput === null ? '' : sudokuInput;
 
       return (
         <input
           type="number"
-          value={sudokuInput}
+          value={value}
           disabled={isGiven}
           min="0"
           step="1"
           max="9"
           id={index}
           onChange={handleInputChange}
+          // eslint-disable-next-line react/no-array-index-key
+          key={index}
         />
       );
     });
