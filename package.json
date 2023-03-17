@@ -11,10 +11,14 @@
     "test-ui": "vitest --ui"
   },
   "dependencies": {
+    "@chakra-ui/react": "^2.5.1",
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
     "@vitest/ui": "^0.29.1",
     "canvas-confetti": "^1.6.0",
+    "framer-motion": "^10.5.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.8.1",

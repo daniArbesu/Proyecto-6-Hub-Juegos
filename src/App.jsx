@@ -1,5 +1,4 @@
 import { Route, Routes } from 'react-router-dom';
-import './App.css';
 import Home from './pages/Home';
 import Tictactoe from './pages/Tictactoe';
 import Hangman from './pages/Hangman';
@@ -18,7 +17,10 @@ function App() {
         </Routes>
       </main>
       <footer>
-        <p>Creado por Daniel Arbesú</p>
+        <p>
+          Creado por Daniel Arbesú, código en{' '}
+          <a href="https://github.com/daniArbesu/Proyecto-6-Hub-Juegos">GitHub</a>
+        </p>
       </footer>
     </>
   );

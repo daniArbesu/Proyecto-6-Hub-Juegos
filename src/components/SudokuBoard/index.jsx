@@ -1,11 +1,16 @@
+import confetti from 'canvas-confetti';
 import { useEffect, useRef, useState } from 'react';
 import { makepuzzle, solvepuzzle } from 'sudoku';
-import { isSudokuCompleted } from '../../utils/sudoku';
+import { isSudokuCompleted, isSudokuCorrect } from '../../utils/sudoku';
+import WinnerModal from '../WinnerModal';
 import SudokuWrapper from './styles';
+
+let modalText = '';
 
 function SudokuBoard() {
   const [sudokuBoard, setSudokuBoard] = useState(null);
   const isCompleted = useRef(false);
+  const isCorrect = useRef(null);
   const [displayBoard, setDisplayBoard] = useState([]);
 
   useEffect(() => {
@@ -13,6 +18,15 @@ function SudokuBoard() {
     setSudokuBoard(newBoard);
     setDisplayBoard(newBoard);
   }, []);
+
+  const resetGame = () => {
+    const newBoard = makepuzzle();
+    setSudokuBoard(newBoard);
+    setDisplayBoard(newBoard);
+    isCompleted.current = false;
+    isCorrect.current = null;
+    modalText = '';
+  };
 
   const handleInputChange = (e) => {
     const newBoard = [...displayBoard];
@@ -58,10 +72,19 @@ function SudokuBoard() {
     setDisplayBoard(solution);
   };
 
-  const validateSudoku = () => {};
+  const validateSudoku = () => {
+    isCorrect.current = isSudokuCorrect(sudokuBoard, displayBoard);
+    if (isCorrect.current) {
+      confetti();
+      modalText = 'You made it, your sudoku is correct';
+    } else {
+      modalText = 'Your solution was incorrect';
+    }
+  };
 
   return (
     <section>
+      {isCorrect.current ? <WinnerModal text={modalText} resetGame={resetGame} /> : null}
       <SudokuWrapper>{renderSudoku(displayBoard)}</SudokuWrapper>
       <button type="button" onClick={validateSudoku} disabled={!isCompleted.current}>
         Validate Sudoku
