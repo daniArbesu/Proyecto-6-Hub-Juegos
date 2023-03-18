@@ -5,12 +5,12 @@ import { isSudokuCompleted, isSudokuCorrect } from '../../utils/sudoku';
 import WinnerModal from '../WinnerModal';
 import SudokuWrapper from './styles';
 
-let modalText = '';
+// let modalText = '';
 
 function SudokuBoard() {
   const [sudokuBoard, setSudokuBoard] = useState(null);
   const isCompleted = useRef(false);
-  const isCorrect = useRef(null);
+  const [modalText, setModalText] = useState('');
   const [displayBoard, setDisplayBoard] = useState([]);
 
   useEffect(() => {
@@ -24,8 +24,7 @@ function SudokuBoard() {
     setSudokuBoard(newBoard);
     setDisplayBoard(newBoard);
     isCompleted.current = false;
-    isCorrect.current = null;
-    modalText = '';
+    setModalText('');
   };
 
   const handleInputChange = (e) => {
@@ -51,6 +50,7 @@ function SudokuBoard() {
       return (
         <input
           type="number"
+          className="cell"
           value={value}
           disabled={isGiven}
           min="0"
@@ -73,24 +73,35 @@ function SudokuBoard() {
   };
 
   const validateSudoku = () => {
-    isCorrect.current = isSudokuCorrect(sudokuBoard, displayBoard);
-    if (isCorrect.current) {
+    const isCorrect = isSudokuCorrect(sudokuBoard, displayBoard);
+    if (isCorrect) {
       confetti();
-      modalText = 'You made it, your sudoku is correct';
+      setModalText('You made it, your sudoku is correct');
     } else {
-      modalText = 'Your solution was incorrect';
+      setModalText('Your solution was incorrect');
     }
   };
 
   return (
     <section>
-      {isCorrect.current ? <WinnerModal text={modalText} resetGame={resetGame} /> : null}
+      {modalText === '' ? null : (
+        <WinnerModal
+          text={modalText}
+          resetGame={resetGame}
+          continueGame={() => {
+            setModalText('');
+          }}
+        />
+      )}
       <SudokuWrapper>{renderSudoku(displayBoard)}</SudokuWrapper>
       <button type="button" onClick={validateSudoku} disabled={!isCompleted.current}>
         Validate Sudoku
       </button>
       <button type="button" onClick={solveSudoku}>
         Solve Sudoku
+      </button>
+      <button type="button" onClick={resetGame}>
+        Reset Sudoku
       </button>
     </section>
   );

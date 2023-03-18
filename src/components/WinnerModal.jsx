@@ -13,7 +13,7 @@ const Modal = styled.dialog`
   top: 200px; // to see the board
 `;
 
-function WinnerModal({ text, resetGame }) {
+function WinnerModal({ text, resetGame, continueGame = null }) {
   const handleReset = () => {
     resetGame();
   };
@@ -21,9 +21,16 @@ function WinnerModal({ text, resetGame }) {
   return (
     <Modal open>
       <h2>{text}</h2>
-      <button type="button" onClick={handleReset}>
-        Restart Game
-      </button>
+      <div>
+        <button type="button" onClick={handleReset}>
+          Restart Game
+        </button>
+        {continueGame ? (
+          <button type="button" onClick={continueGame}>
+            Correct your solution
+          </button>
+        ) : null}
+      </div>
     </Modal>
   );
 }
