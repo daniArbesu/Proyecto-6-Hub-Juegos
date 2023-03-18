@@ -3,10 +3,11 @@ import styled from 'styled-components';
 export const CardContainer = styled.article`
   display: flex;
   flex-direction: column;
-  padding: 24px;
-  gap: 24px;
-  max-width: 368px;
-  background: #ffffff;
+  padding: 1.5rem;
+  gap: 1.5rem;
+  max-width: 300px;
+  background: var(--light-color);
+  color: var(--dark-color);
   box-shadow: 0px 6px 40px rgba(0, 0, 0, 0.16);
   border-radius: 10px;
 
@@ -19,7 +20,6 @@ export const CardContainer = styled.article`
 
 export const Image = styled.img`
   height: 184px;
-  width: 320px;
   border-radius: 8px;
 
   object-fit: cover;
@@ -29,16 +29,14 @@ export const Description = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 0px;
-  gap: 8px;
-  width: 320px;
+  gap: 1.5rem;
 `;
 
 export const Heading = styled.h3`
   font-weight: 600;
   font-size: 18px;
   line-height: 22px;
-  color: #464646;
+  margin: 0;
 `;
 
 export const Summary = styled.p`
@@ -47,6 +45,7 @@ export const Summary = styled.p`
   letter-spacing: 1px;
   color: #676767;
   text-align: left;
+  margin: 0;
 `;
 
 export const ButtonWrapper = styled.div`
