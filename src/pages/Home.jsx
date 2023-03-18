@@ -6,7 +6,7 @@ import links from '../constants/home';
 const CardsWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 1.5rem;
 
   @media screen and (min-width: 800px) {
     flex-direction: row;
