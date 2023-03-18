@@ -16,11 +16,11 @@ const CardsWrapper = styled.div`
 function Home() {
   return (
     <div>
-      <h1>Select a game</h1>
+      <h2>Select a game</h2>
       <CardsWrapper>
-        {links.map(({ url, heading }) => (
+        {links.map(({ url, heading, image, text }) => (
           <Link to={url} key={url}>
-            <Card heading={heading} />
+            <Card heading={heading} image={image} text={text} />
           </Link>
         ))}
       </CardsWrapper>
