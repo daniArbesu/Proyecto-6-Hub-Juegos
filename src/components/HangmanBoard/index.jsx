@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { CHARACTERS, MAX_TRIALS } from '../../constants/hangman';
 import { printWord, randomWord, checkWordComplete } from '../../utils/hangman';
-import HangmanIcon from '../HangmanIcon';
+import HangmanIcon from '../ui/HangmanIcon';
 import KeyboardRow from '../KeyboardRow';
 import WinnerModal from '../WinnerModal';
 import { HangmanBoardWrapper } from './styles';

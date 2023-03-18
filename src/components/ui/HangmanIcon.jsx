@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import styled from 'styled-components';
-import { hangmanPaths } from '../constants/hangman';
+import { hangmanPaths } from '../../constants/hangman';
 
 const Icon = styled.svg`
   width: 100%;
