@@ -5,8 +5,12 @@ import links from '../constants/home';
 
 const CardsWrapper = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: 16px;
+
+  @media screen and (min-width: 800px) {
+    flex-direction: row;
+  }
 `;
 
 function Home() {
