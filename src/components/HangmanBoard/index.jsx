@@ -4,8 +4,8 @@ import styled from 'styled-components';
 import { CHARACTERS, MAX_TRIALS } from '../../constants/hangman';
 import { printWord, randomWord, checkWordComplete } from '../../utils/hangman';
 import HangmanIcon from '../ui/HangmanIcon';
-import KeyboardRow from '../KeyboardRow';
-import WinnerModal from '../WinnerModal';
+import KeyboardRow from '../ui/KeyboardRow';
+import WinnerModal from '../ui/WinnerModal';
 import { HangmanBoardWrapper } from './styles';
 
 const Keyboard = styled.section`

@@ -2,7 +2,7 @@ import confetti from 'canvas-confetti';
 import { useEffect, useRef, useState } from 'react';
 import { makepuzzle, solvepuzzle } from 'sudoku';
 import { isSudokuCompleted, isSudokuCorrect } from '../../utils/sudoku';
-import WinnerModal from '../WinnerModal';
+import WinnerModal from '../ui/WinnerModal';
 import SudokuWrapper from './styles';
 
 // let modalText = '';

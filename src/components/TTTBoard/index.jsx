@@ -2,7 +2,7 @@ import confetti from 'canvas-confetti';
 import { useState, useRef } from 'react';
 import { INITIAL_BOARD, PLAYERS } from '../../constants/tictactoe';
 import checkWinner, { checkDraw, randomPlayer } from '../../utils/tictactoe';
-import WinnerModal from '../WinnerModal';
+import WinnerModal from '../ui/WinnerModal';
 import { TTTBoardWrapper, TTTButton } from './styles';
 
 let modalText = '';

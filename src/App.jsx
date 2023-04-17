@@ -18,7 +18,7 @@ function App() {
       </main>
       <footer>
         <p>
-          Creado por Daniel Arbesú, código en{' '}
+          Created by Daniel Arbesú, source code in{' '}
           <a href="https://github.com/daniArbesu/Proyecto-6-Hub-Juegos">GitHub</a>
         </p>
       </footer>
