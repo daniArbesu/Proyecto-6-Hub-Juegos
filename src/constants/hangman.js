@@ -1,5 +1,16 @@
 // Constants for the Hangman Game
-export const PLAY_WORDS = ['cat', 'racoon', 'monkey', 'shark', 'whale', 'mouse'];
+export const PLAY_WORDS = [
+  'squirrel',
+  'racoon',
+  'monkey',
+  'shark',
+  'whale',
+  'mouse',
+  'camel',
+  'zebra',
+  'horse',
+  'elephant'
+];
 export const CHARACTERS = 'abcdefghijklmnopqrstuvwxyz';
 export const hangmanPaths = [
   {
